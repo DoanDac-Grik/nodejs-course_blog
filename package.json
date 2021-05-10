@@ -1,0 +1,30 @@
+{
+  "name": "blog_nodejs-course",
+  "version": "1.0.0",
+  "description": "hoc nodejs",
+  "main": "index.js",
+  "scripts": {
+    "start":"nodemon --inspect index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DoanDac-Grik/nodejs-course_blog.git"
+  },
+  "keywords": [
+    "hoc",
+    "nodejs"
+  ],
+  "author": "doandac",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DoanDac-Grik/nodejs-course_blog/issues"
+  },
+  "homepage": "https://github.com/DoanDac-Grik/nodejs-course_blog#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

@@ -1,0 +1,163 @@
+<form class="mt-4" method="POST" action="/courses/handle-form-actions">
+    <h2>Khóa học đã xóa</h2>
+     <div class="mt-4 d-flex align-items-center ">
+      <div class="form-check ">
+        <input class="form-check-input"  type="checkbox" value="" id="checkbox-all">
+        <label class="form-check-label" for="checkbox-all"> Chọn tất cả</label>
+       
+      </div>
+      <select class="form-control w-25" required name="action">
+        <option value="">---Chọn hành động---</option>
+        <option value="restore">Khôi phục</option>      
+        <option value="delete-force">Xóa vĩnh viễn</option>      
+      </select>   
+      <button class="btn btn-primary btn-sm check-all-submit-btn disabled">Thực hiện</button>  
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tên khóa học</th>
+          <th scope="col">Mã video</th>
+          <th scope="col">Slug</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+
+        </tr>
+      </thead>
+      <tbody>
+        
+          {{#each courses}}
+        <tr>
+          <td>
+            <div class="form-check ">
+              <input class="form-check-input" name ="courseIds[]" type="checkbox" value="{{this._id}}" id="flexCheckDefault">        
+            </div>
+          </td>
+          <th scope="row"> {{ sum @index 1}} </th>
+          <td>{{this.name}}</td>
+          <td> {{this.videoId}} </td>
+          <td> {{this.slug}} </td>
+          <td> <a class="btn btn-link btn-restore" data-id="{{this._id}}"  href="" >Khôi phục</a> </td>
+          {{!-- attribute data-whatever trong dòng dưới là data-id để lấy giá trị nào đó --}}
+          <td> <a class="btn btn-link" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-course-modal"  href="/">Xóa vĩnh viễn</a> </td>
+
+        </tr>
+        {{else}}
+          <td colspan="5" class="text-center">Thùng rác trống
+            <a href="/me/store-courses">Danh sách khóa học</a>
+          </td>
+        {{/each}}
+      </tbody>
+    </table>
+</form>
+
+
+{{!-- Cofirm delete --}}
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="delete-course-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
+        
+      </div>
+      <div class="modal-body">
+        Bạn có chắc muốn xóa khóa học này vĩnh viễn chứ?
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        <button id="btn-delete-course" type="button" class="btn btn-primary">Xóa bỏ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- Hidden form --}}
+
+<form method="POST" name="delete-course-form"> </form>
+<form method="POST" name="restore-course-form"> </form>
+
+<script>
+ 
+  //Thực hiện một function khi DOM sẵn sàng
+  document.addEventListener('DOMContentLoaded', function()
+  {
+    //XÓA LUÔN KHỎI DB
+    //Chọn ra thẻ HTML của form xóa vĩnh viễn, khác ở bên soft delete phần controller
+    var deleteForm = document.forms['delete-course-form']; 
+    //Lấy ra HTML của thẻ button => Lắng nghe sự kiện khi bấm xóa vĩnh viễn
+    //Đây là btn xóa của modal xác nhận xóa vĩnh viễn
+    var btnDeleteCourse = document.getElementById("btn-delete-course");
+    //Kích hoạt modal cofirm
+    $('#delete-course-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget); // Button that triggered the modal
+      courseId = button.data('id'); // Extract info from data-* attributes
+      
+    });
+    //Lắng nghe sự kiện delete vĩnh viễn khi ấn nút xóa trên modal confirm
+     btnDeleteCourse.onclick = function() { 
+      deleteForm.action ='/courses/' + courseId +'/force?_method=DELETE';
+      deleteForm.submit();
+    }
+
+    //KHÔI PHỤC
+    //Chọn ra thẻ HTML chứa class restore-course-form
+    //=>Mục đích: tạo ra form trống để submit về server, thực hiện yêu cầu
+    var restoreForm = document.forms['restore-course-form'];
+    //Lấy ra HTML của thẻ button => Lắng nghe sự kiện khi bấm khôi phục
+    var restoreButton = $('.btn-restore');
+    //Khi click và nút Khôi phục
+    restoreButton.click(function(e){
+      e.preventDefault();
+      var courseId= $(this).data('id');
+      //Gán thêm action để đẩy lên cho route xử lí
+      restoreForm.action ='/courses/' + courseId +'/restore?_method=PATCH';
+      restoreForm.submit();
+    }); 
+
+
+    //CHECKBOX các hành động
+    //Query ra checkbox-all, là checkbox khi check sẽ chọn tất cả
+    var checkboxAll = $('#checkbox-all');
+    //Query ra các checkbox trong item, nó sẽ là 1 Array(name) chứa các _id(value)
+    var courseItemCheckbox = $('input[name="courseIds[]"]');
+    //Query ra Button thực hiện submit hành động     
+    var checkAllSubmitBtn =$('.check-all-submit-btn');
+    //Ta cần có hàm phụ trợ để valid xem có hợp lệ để Submit hành động không
+    //Nếu có số checked >0, cho phép nhấn nút để submit
+    function renderCheckAllSubmitBtn() {
+      var isCheckedCount =  $('input[name="courseIds[]"]:checked').length;
+      if(isCheckedCount>0){
+        checkAllSubmitBtn.removeClass('disabled');
+      }
+      else {
+        checkAllSubmitBtn.addClass('disabled');
+      }
+    }
+    //Xử lí khi checkbox-all được chọn => item checkbox cũng được checked bằng Atr .prop
+    checkboxAll.change(function(){
+      var isCheckAll = $(this).prop('checked');
+      courseItemCheckbox.prop('checked',isCheckAll);
+      renderCheckAllSubmitBtn();
+    });
+    //Xử lí khi ta check từng item, nếu đang chọn full rồi bỏ -> bỏ checked ở checkall
+    //Chọn tất cả -> checked ở checkall
+    courseItemCheckbox.change(function(){
+      var isCheckAll = courseItemCheckbox.length === $('input[name="courseIds[]"]:checked').length;
+      checkboxAll.prop('checked',isCheckAll);
+      renderCheckAllSubmitBtn();
+    });
+    //Lắng nghe sự kiện submit khi click nút Thực hiện
+    checkAllSubmitBtn.on('submit',function(e){
+      var isSubmitable = !$(this).hasClass('disable');
+      if(!isSubmitable){
+        e.preventDefault();
+      }
+    });
+  });
+</script>

@@ -1,1 +1,76 @@
-<h1>Home Page</h1>
+<div class="mt-4">
+    <div class="row">
+    
+
+    <div class="col-7">
+            <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="2000">
+                <img src="https://i.pinimg.com/originals/61/ec/ab/61ecabce5788fe23f0d9e1ae7e5d8fca.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+               
+                </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="3000">
+                <img src="http://edunow.vn/wp-content/uploads/2021/03/xay-dung-ke-hoach-dao-tao-noi-bo.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                
+                 </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="3000">
+                <img src="https://image.freepik.com/free-vector/online-courses-concept_23-2148524391.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                
+            </div>
+            </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next " type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+    </div>
+    <div class="col-5" style="background-color: rgb(238, 238, 125);">
+        <h2 >Đồ án cuối kì: </h2>
+        <h2>Kĩ thuật Phát triển Hệ thống Web</h2>
+        <ul>
+            <li>Giảng viên hướng dẫn: Võ Ngọc Tân</li>
+            <li>Sinh viên thực hiện: Đoàn Văn Đắc - Lê Tuấn Anh</li>
+            <li>Yêu cầu đồ án: Tạo website có các thành phần và chức năng sau:
+                <ul>
+                    <li>Kết nối với CSDL Mysql hoặc MongoDB</li>
+                    <li>Web Site gồm các trang:Trang chủ, Trang Chi Tiết, Trang Tìm Kiếm, Đăng ký, Đăng Nhập </li>
+                    <li>Phần Admin cho phép CRUD một bảng trong CSDL</li>
+                </ul>
+            </li>
+            <li>Website thực hiện: Website học online 
+                <ul>
+                    <li>Cho phép user học các video online</li>
+                    <li>Admin có thể quản lí các khóa học, cho phép CRUD, phần delete có thể force delete hoặc soft delete </li>
+                    <li>Tìm kiếm khóa học bằng tên khóa học</li>
+                    <li>Authenticate và Authorozite khi truy cập các đường dẫn</li>
+                </ul>
+            </li>        
+    </div>
+    </div>
+   <button id ="aaa" class="btn btn-lg btn-primary"><a href="/auth/loginpage" style="text-decoration: none;color:aliceblue;">Đăng nhập</a></button>
+   <button id="bbb" class="btn btn-lg btn-primary"><a href="/auth/registerpage" style="text-decoration: none;color:aliceblue;">Đăng kí</a></button>
+</div>
+<script>
+     document.addEventListener('DOMContentLoaded', function(){
+     var x= document.cookie;
+     
+    if(x){
+     document.getElementById('aaa').style.display = "none";
+     document.getElementById('bbb').style.display = "none";
+   
+   
+    }
+     
+  });
+</script>

@@ -1,1 +1,50 @@
-<h1>Header</h1>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container" >
+    <a class="navbar-brand" href="/">Trang chủ</a>
+    <a class="navbar-brand" href="/courses/show">Xem bài giảng</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+        
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between;" > 
+      
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success " type="submit">Search</button>
+      </form>
+      <div>
+       
+        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">   
+          <li class="nav-item dropdown">
+            <a  class="nav-link dropdown-toggle  " href="#" id="navbar" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               {{user.username}}
+            </a>
+            <ul id="ooo" class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/courses/create">Đăng video bài giảng</a></li>
+              <li><a class="dropdown-item" href="/me/stored/courses">Quản lí video bài giảng</a></li>
+              <li><a class="dropdown-item" href="/courses/show">Xem video bài giảng</a></li>
+              
+
+              <li><hr class="dropdown-divider"></li>
+              <li><a  class="dropdown-item" href="/auth/logout">Đăng Xuất</a></li>
+            </ul>
+        </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+     var x= document.cookie;
+     
+     console.log(x)
+    if(!x){
+     document.getElementById('ooo').style.display = "none";
+   
+    }
+     console.log(document.getElementById('navbar').innerHTML)
+  });
+   
+</script>

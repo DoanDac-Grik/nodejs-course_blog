@@ -4,8 +4,9 @@
   "description": "hoc nodejs",
   "main": "./src/index.js",
   "scripts": {
+    "beautiful": "prettier --single-quote --trailing-comma all --tab-width 4 --write 'src/**/*.{js,json,scss}'",
     "start": "nodemon --inspect ./src/index.js",
-    "watch": "node-sass -w src/resources/scss/app.scss src/public/css/app.css",
+    "watch": "node-sass -w src/resources/scss/app.scss --output src/public/css/app.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,14 +24,26 @@
   },
   "homepage": "https://github.com/DoanDac-Grik/nodejs-course_blog#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "bootstrap-icons": "^1.5.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-handlebars": "^5.3.2"
+    "express-handlebars": "^5.3.2",
+    "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.12.9",
+    "mongoose-delete": "^0.5.3",
+    "mongoose-slug-generator": "^1.0.4"
   },
   "devDependencies": {
     "gulp-wait": "^0.0.2",
+    "husky": "^6.0.0",
     "i": "^0.3.6",
+    "lint-staged": "^11.0.0",
     "morgan": "^1.10.0",
     "node-sass": "^6.0.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.0"
   }
 }

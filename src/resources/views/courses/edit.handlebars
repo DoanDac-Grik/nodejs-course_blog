@@ -1,0 +1,10 @@
+<div class="mt-4">
+    <h3>Cập nhật khóa học</h3>
+    <form method="POST" action ="/courses/{{course._id}}?_method=PUT"> 
+      <input value="{{course.name}}" name="name" id="name" type="text"  placeholder="Điền tên">     
+      <input value="{{course.description}}" name="description" id="description" type="text" placeholder="Mô tả khóa học">
+      <input value="{{course.videoId}}" name="videoId" id="videoId" type="text" placeholder="Mã video">    
+      <input value="{{course.image}}" name="image" id="image"  type="text" placeholder="Link hình ảnh">
+      <button type="submit" class="btn btn-primary">Lưu lại</button>
+    </form>
+</div>

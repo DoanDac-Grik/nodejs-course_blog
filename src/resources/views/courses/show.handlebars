@@ -1,0 +1,22 @@
+
+
+<div class="row">
+     {{#each courses}}
+        <div class="col-sm-6 col-lg-4 mt-2">
+            
+            <div class="card" style="min-height: 400px;">
+            <a href="/courses/learn/{{this.slug}}">
+            <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
+            </a>
+            <div class="card-body">
+            <h5 class="card-title">{{this.name}}</h5>
+            <p class="card-text">{{this.description}}</p>
+            <a href="/courses/learn/{{this.slug}}" class="btn btn-primary">Xem video</a>
+            </div>
+         
+            </div>
+        </div>
+        {{/each}}
+        
+</div>
+   
